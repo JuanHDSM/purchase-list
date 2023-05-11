@@ -3,21 +3,22 @@ package entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import enums.Delivery;
+
 public class GroceryList {
     
     private List<Product> products =  new ArrayList<>();
-    private Product product;
+    private Delivery delivery;
 
     public GroceryList() {
     }
 
-    public GroceryList(Product product) {
-        super();
-        this.product = product;
+    public GroceryList(Delivery delivery) {
+        this.delivery = delivery;
     }
 
-    public Product getProduct() {
-        return product;
+    public Delivery getDelivery() {
+        return delivery;
     }
 
     public List<Product> getList() {
@@ -30,6 +31,11 @@ public class GroceryList {
 
     public void removeProduct(Product product) {
         products.remove(product);
+    }
+
+    public boolean filterProduct(List<Product> list, String name) {
+        Product prod =  list.stream().filter(x -> x.getName() == name).findFirst().orElse(null);
+        return prod != null;
     }
 
     public List<Product> getProducts() {
@@ -58,10 +64,6 @@ public class GroceryList {
         }
 
         return sb.toString();
-    }
-
-    public Object stream() {
-        return null;
     }
 
 }

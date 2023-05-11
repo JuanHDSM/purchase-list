@@ -4,102 +4,70 @@ import java.util.Scanner;
 
 import entities.GroceryList;
 import entities.Product;
-import enums.Priority;
+import enums.Delivery;
 
 public class App {
     public static void main(String[] args) throws Exception {
         
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Gostaria de iniciar a lista S/N? ");
-        char res = sc.next().charAt(0);
+        GroceryList list = new GroceryList();
 
-        if(res == 'S') {
-            creatList();
-        }
+        int res;
+
+        do{
+            System.out.println("Opção 1 - Comprar");
+            System.out.println("Opção 2 - Listar");
+            System.out.println("Opção 3 - Atualizar");
+            System.out.println("Opção 0 - Sair");
+            res = sc.nextInt();
+
+            switch (res) {
+                case 1:
+                    creatList(list);
+                    res = 1;
+                    break;
+            
+                case 2:
+                    System.out.println(list);
+                default:
+                    break;
+            }
+        }while(res != 0);
 
         sc.close();
     }
 
-    public static void creatList() {
+    public static void creatList(GroceryList list) {
 
         Scanner sc = new Scanner(System.in);
-
-        GroceryList list = new GroceryList();
-
-        System.out.print("Qual valor você gostaria de gastar? R$ ");
-        Double maxValue = sc.nextDouble();
-        String name = null;
-        Double valorAtual = maxValue;
+        int res;
 
         do {
-            sc.nextLine();
+            System.out.println();
             System.out.print("Digite o nome do produto: ");
-            name = sc.nextLine().toUpperCase();
+            String name = sc.next().toUpperCase();
             System.out.print("Digite o preço do produto: R$ ");
             Double price = sc.nextDouble();
             System.out.print("Digite a quantidade do produto: ");
             int qtd = sc.nextInt();
-            System.out.print("Digite a prioridade do produto ALTA/MEDIA/BAIXA: ");
-            Priority priority = Priority.valueOf(sc.next().toUpperCase());
 
-            Product product = new Product(name, price, qtd, priority);
+            Product product = new Product(name, price, qtd);
 
-            maxValue -= product.subtotal();
+            System.out.println("Entrega  |  Retirada");
+            Delivery delivery = Delivery.valueOf(sc.next().toUpperCase());
 
-            if(maxValue >= 0) {
-                ((GroceryList) list).addProduct(product);
-                System.out.println();
-                System.out.printf("Saldo atualizado: %.2f%n%n", maxValue);
-            }
-            else {
-                ((GroceryList) list).removeProduct(product);
-                maxValue += product.subtotal();
-                System.out.println();
-                System.out.println("Seu saldo é insuficiente para esta compra, tente um produto com valor inferior.");
-                System.out.printf("Saldo atualizado: %.2f%n%n" , maxValue);
-            }
+            list = new GroceryList(delivery);
 
-            valorAtual = maxValue;
+            list.addProduct(product);
 
-        } while(valorAtual > 0);
+            System.out.println();
+            System.out.println(product.getName() + " foi adicionado ao carrinho");
 
-        System.out.println();
-        System.out.println("Lista de compras");
-        System.out.println();
-        System.out.println(list);
-
-        updateList(list);
+            System.out.println("1 - Continuar comprando | 2 - Sair");
+            res = sc.nextInt();
+        } while(res == 1);
 
         sc.close();
     }
-
-    public static void updateList(GroceryList list) {
-        Scanner sc = new Scanner(System.in);
-
-        System.out.println("Gostaria de remover ou modificar um produto da lista R/M? ");
-        char res = sc.next().charAt(0);
-
-        if(res == 'R') {
-            sc.nextLine();
-            System.out.println("Digite o nome do produto que gostaria de remover: ");
-            String name = sc.nextLine().toUpperCase();
-
-            System.out.println(list);
-
-            while(hasProduct(list, name)) {
-                System.out.println("ACHOU!");
-                sc.next();
-            }
-
-        }
-
-        sc.close();
-    }
-
-	public static boolean hasProduct(GroceryList list, String name) {
-		Product emp = list.getProducts().stream().filter(x -> x.getName() == name).findFirst().orElse(null);
-		return emp != null;
-	}
-
 }
