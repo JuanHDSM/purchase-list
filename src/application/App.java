@@ -16,12 +16,14 @@ public class App {
         Scanner sc = new Scanner(System.in);
 
         PurchaseList purchaseList = new PurchaseList();
-        
+
+        String targetFileStr = "c:\\temp\\list.txt";
         int res = 0;
 
         do {
             System.out.println("DIGITE OS DADOS DOS PRODUTOS");
             System.out.println("---------------------------------------------------------------");
+            System.out.println();
             System.out.print("Digie o nome do produto: ");
             String name = sc.next();
             System.out.print("Digite o preço do produto: ");
@@ -29,10 +31,9 @@ public class App {
             System.out.print("Digite a quantidade do Produto: ");
             int quantity = sc.nextInt();
     
-           
-    
-            purchaseList.addProduct( new Product(name, price, quantity));
+            purchaseList.addProduct(new Product(name, price, quantity));
 
+            System.out.println();
             System.out.println("1 - Continuar  |  0 - Sair");
             res = sc.nextInt();
             System.out.println();
@@ -41,14 +42,9 @@ public class App {
         System.out.println();
         System.out.println("Lista de compras");
         System.out.println("---------------------------------------------------------------");
+        System.out.println();
         System.out.println(purchaseList);
-
-
-        String targetFolderStr = "c:\\temp";
-
-        
-
-        String targetFileStr = targetFolderStr + "\\list.txt";
+        System.out.println();
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(targetFileStr))) {
             
