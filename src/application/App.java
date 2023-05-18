@@ -1,5 +1,8 @@
 package application;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -34,14 +37,28 @@ public class App {
             res = sc.nextInt();
             System.out.println();
         } while (res != 0);
-
     
-    
-
         System.out.println();
         System.out.println("Lista de compras");
         System.out.println("---------------------------------------------------------------");
         System.out.println(purchaseList);
+
+
+        String targetFolderStr = "c:\\temp";
+
+        
+
+        String targetFileStr = targetFolderStr + "\\list.txt";
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(targetFileStr))) {
+            
+                bw.write(purchaseList.toString());
+
+            System.out.println("Lista criada em: " + targetFileStr);
+        }
+        catch (IOException e) {
+            System.out.println("Error writing file: " + e.getMessage());
+        }
 
         sc.close();
     }
