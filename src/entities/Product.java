@@ -38,16 +38,16 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public double total() {
+    public double subTotal() {
         return price * quantity;
     }
 
      public String toString() {
-        return "Nome: " 
+        return "Produto: " 
         + name 
         + ",  Preço: R$ " 
         + String.format("%.2f", price) 
-        + ", Total: " 
-        + String.format("%.2f%n", total());
+        + ", Subtotal: " 
+        + String.format("%.2f%n", subTotal());
      }
 }

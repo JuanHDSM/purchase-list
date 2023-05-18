@@ -12,7 +12,8 @@ public class App {
         Locale.setDefault(Locale.US);
         Scanner sc = new Scanner(System.in);
 
-        PurchaseList list;
+        PurchaseList purchaseList = new PurchaseList();
+        
         int res = 0;
 
         do {
@@ -25,20 +26,22 @@ public class App {
             System.out.print("Digite a quantidade do Produto: ");
             int quantity = sc.nextInt();
     
-            Product product = new Product(name, price, quantity);
+           
     
-            list = new PurchaseList(product);
-    
-            list.addProduct(product);
+            purchaseList.addProduct( new Product(name, price, quantity));
 
             System.out.println("1 - Continuar  |  0 - Sair");
             res = sc.nextInt();
+            System.out.println();
         } while (res != 0);
 
+    
+    
 
         System.out.println();
         System.out.println("Lista de compras");
-        System.out.println(list);
+        System.out.println("---------------------------------------------------------------");
+        System.out.println(purchaseList);
 
         sc.close();
     }

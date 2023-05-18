@@ -40,11 +40,22 @@ public class PurchaseList {
         this.list = list;
     }
 
+    public double total() {
+        double sum = 0.0;
+        for (Product product : list) {
+            sum += product.subTotal();
+        }
+        return sum;
+    }
+
     public String toString() {
         StringBuilder sb = new StringBuilder();
+
         for (Product product : list) {
             sb.append(product);
         }
+        sb.append(String.format("Total: %.2f", total()));
+
         return sb.toString();
     }
 }
