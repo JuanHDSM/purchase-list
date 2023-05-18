@@ -1,19 +1,18 @@
 package entities;
 
 public class Product {
-    
-    private String name;
-    private Double price;
-    private Integer qtd;
+     private String name;
+     private Double price;
+     private Integer quantity;
 
-    public Product() {
-    }
+     public Product(){
+     }
 
-    public Product(String name, Double price, Integer qtd) {
+     public Product(String name, Double price, Integer quantity) {
         this.name = name;
         this.price = price;
-        this.qtd = qtd;
-    }
+        this.quantity = quantity;
+     }
 
     public String getName() {
         return name;
@@ -31,22 +30,24 @@ public class Product {
         this.price = price;
     }
 
-    public Integer getQtd() {
-        return qtd;
+    public Integer getQuantity() {
+        return quantity;
     }
 
-    public void setQtd(Integer qtd) {
-        this.qtd = qtd;
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
-    
-    public Double subtotal() {
-        return qtd * price;    
 
-    } 
+    public double total() {
+        return price * quantity;
+    }
 
-    @Override
-    public String toString() {
-        return "Nome do produto: " + name + ", preço do produto: " + String.format("%.2f", price) + ", quantidade: " + qtd + ", subtotal: R$ " + String.format("%.2f%n", subtotal());
-    }    
-    
+     public String toString() {
+        return "Nome: " 
+        + name 
+        + ",  Preço: R$ " 
+        + String.format("%.2f", price) 
+        + ", Total: " 
+        + String.format("%.2f%n", total());
+     }
 }
